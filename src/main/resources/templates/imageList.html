@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>List of Models</title>
+  <style>
+    .table-container {
+      max-height: 300px; /* Chiều cao tối đa của bảng */
+      overflow-y: auto; /* Scroll dọc */
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid black;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+    tr:hover {
+      background-color: #f5f5f5;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<h1>List of Models</h1>
+<div class="table-container">
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Path</th>
+      <th>Path</th>
+      <th>Path</th>
+    </tr>
+    </thead>
+  </table>
+  <table>
+    <tr th:each="image : ${images}">
+      <td th:text="${image.ID_Model}"></td>
+      <td th:text="${image.Model_Path}"></td>
+      <td th:text="${image.Name_Model}"></td>
+      <td th:text="${image.Training_Time}"></td>
+      <td th:text="${image.Accuracy}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+
+</html>

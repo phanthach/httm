@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/quan_li_model.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body>
+<div class="khung-chu-nhat">
+  <div class="ten-chuc-nang">
+    <h4 class="h1">Hệ thống quản lý</h4>
+  </div>
+  <div class="flex-box">
+    <div class="thanh-cong-cu">
+      <div class="tai-khoan">
+        <h4 style="margin-top: 10px; color: rgb(56, 65, 56); margin-left: 10px">Phan Tuấn Thạch</h4>
+        <a href="">Logout</a>
+      </div>
+      <div class="bang-cong-cu">
+        <button class="button-congcu" onclick="goToPage('/')" style="border-top-right-radius: 10px;border-top-left-radius: 10px;">Home</button>
+        <button class="button-congcu" onclick="goToPage('/quan_li_model')">Danh sách model</button>
+        <button class="button-congcu" onclick="goToPage('/huan_luyen_model')">Huấn luyện model</button>
+      </div>
+    </div>
+    <div class="bang-tabel">
+      <div class="button-loc">
+        <label for="tu">Từ: </label>
+        <input type="text" id="tu" name="chon ngay" placeholder="yyyy-mm-dd" th:value="${tu}">
+        <label for="den">Đến: </label>
+        <input type="text" id="den" name="chon ngay" placeholder="yyyy-mm-dd" th:value="${den}">
+        <label for="id" >ID: </label>
+        <input type="text" style="width: 4cm;" id="id" placeholder="Nhập ID" th:value="${id}">
+        <button class="tim-kiem" onclick="timKiem()">Tìm kiếm</button>
+      </div>
+      <div class="tabel">
+        <h4 class="h1" >Danh sách model</h4>
+        <div class="khung">
+          <div class="buton-codinh" >
+            <table class="bang-du-lieu">
+              <tr style="display: flex">
+                <th class="nhan-de" style="width: 2cm">ID Model</th>
+                <th class="nhan-de" style="width: 4cm">Name Model</th>
+                <th class="nhan-de" style="width: 4cm">Training Time</th>
+                <th class="nhan-de truncate-cell" style="width: 4cm">Model Path</th>
+                <th class="nhan-de" style="width: 4cm">F1_Score</th>
+                <th class="nhan-de" style="width: 6.2cm">Action</th>
+              </tr>
+            </table>
+          </div>
+          <div class="table-container" >
+            <table class="bang-du-lieu">
+              <tbody>
+              <tr style="display: flex" th:each="models : ${models}">
+                <td style="text-align: center; width: 2cm; height: 30px" th:text="${models.ID_Model}"></td>
+                <td style="text-align: center; width: 4cm; height: 30px"  th:text="${models.Name_Model}"></td>
+                <td style="text-align: center; width: 4cm; height: 30px"th:text="${#dates.format(models.Training_Time, 'yyyy-MM-dd')}"></td>
+                <td style="text-align: center; width: 4cm; height: 30px" class="truncate-cell" th:text="${models.Model_Path}"></td>
+                <td style="text-align: center; width: 4cm; height: 30px" th:text="${models.Accuracy}"></td>
+                <td style="height: 30px; width: 5.7cm ">
+                  <div class="khung-action">
+                    <Button class="button-x" onclick="deleteLearningHistoryModel(this)">Xóa</Button>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  flatpickr("#tu", {
+    dateFormat: "Y-m-d",
+  });
+  flatpickr("#den", {
+    dateFormat: "Y-m-d",
+  });
+  function deleteLearningHistoryModel(button) {
+    var row = button.parentNode.parentNode.parentNode;
+    var id = row.querySelector("td:first-child").textContent;
+    var confirmation = confirm("Bạn có chắc chắn muốn xóa mục có ID_Model = " + id + "?");
+
+    if (confirmation) {
+      fetch('/quan_li_model/' + id, {
+        method: 'DELETE'
+      })
+              .then(response => {
+                if (response.ok) {
+                  console.log('Dữ liệu đã được xóa thành công');
+                  location.reload();
+                } else {
+                  console.error('Lỗi khi xóa dữ liệu');
+                }
+              })
+              .catch(error => {
+                console.error('Lỗi khi gửi yêu cầu xóa: ' + error);
+              });
+    }
+  }
+  function timKiem() {
+    var fromDate = document.getElementById("tu").value;
+    var toDate = document.getElementById("den").value;
+    var id = document.getElementById("id").value;
+
+    // Chuyển hướng đến trang tìm kiếm với các tham số tu và den
+    if (fromDate.trim() === "" && toDate.trim() === "" && id.trim() === "") {
+      alert("Vui lòng nhập ít nhất một trường để tìm kiếm.");
+      return;
+    }
+    if (fromDate.trim() === "" || toDate.trim() === "" ) {
+      alert("Vui lòng nhập ầy đủ thông tin ngày tìm.");
+      return;
+    }
+    if(id.trim() === ""){
+      var searchUrl = '/quan_li_model/search?tu=' + fromDate + '&den=' + toDate + '&id=' + 0;
+    }
+    else if (id.trim() !== "" && !Number.isInteger(parseInt(id))) {
+      alert("Vui lòng nhập một số nguyên cho trường ID.");
+      return;
+    }
+    else{
+      var searchUrl = '/quan_li_model/search?tu=' + fromDate + '&den=' + toDate + '&id=' + id;
+    }
+    // Xây dựng URL tìm kiếm
+    // Chuyển hướng đến URL tìm kiếm
+    window.location.href = searchUrl;
+  }
+  function goToPage(url) {
+    window.location.href = url;
+  }
+</script>
+</body>
+</html>
+

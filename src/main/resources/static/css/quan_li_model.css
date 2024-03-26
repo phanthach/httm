@@ -1,0 +1,279 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.khung-chu-nhat {
+    width: 100%; /* 6 inch x 72px/inch */
+    height: 100%; /* 10 inch x 72px/inch */
+    border: 1px solid black; /* Đường viền khung ngoài */
+    background-color: rgb(206, 202, 202);
+    position: relative;
+}
+.ten-chuc-nang{
+    display: flex;
+    height: 40px;
+    margin-top: 10px;
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: rgb(246, 249, 248);
+}
+.h1{
+    margin-left: 20px;
+    margin-top: 10px;
+    color: rgb(65, 67, 67);
+}
+.bang-du-lieu{
+    display: flex;
+    border-collapse: collapse;
+    margin-bottom: 0px;
+
+}
+.khung{
+    margin-top: 5%;
+    margin-right: 10%;
+    margin-left: 10%;
+}
+.table-container {
+    max-height: 303px; /* Chiều cao tối đa của bảng */
+    overflow-y: scroll; /* Scroll dọc */
+    background-color: lightcyan;
+}
+.button {
+    margin-left: 10%;
+    flex-direction: column;
+    margin-top: 3%;
+}
+.button-loc{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    background-color: rgb(214, 214, 213);
+    height: 40px;
+}
+.buton-codinh{
+    display: flex;
+    height: 30px;
+}
+input[type="text"] {
+    padding: 5px;
+    width: 200px;
+}
+.button-timkiem{
+    background-color: aquamarine;
+    height: 0.8cm;
+    width: 3cm;
+    margin-left: 2cm;
+}
+.button-xemchitiet{
+    background-color: rgb(238, 228, 89);
+    height: 1cm;
+    width: 5cm;
+    margin-top: 100px;
+    margin-left: 40%;
+}
+.button-themmohinh{
+    background-color: rgb(238, 228, 89);
+    height: 1cm;
+    width: 5cm;
+    margin-top: 100px;
+    margin-left: 2cm;
+}
+.button-thoat{
+    background-color: rgb(252, 23, 7);
+    height: 0.8cm;
+    width: 3cm;
+    margin-top: 5%;
+    margin-left: 1cm;
+    display: block;
+}
+.flex-box{
+    display: flex;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+.thanh-cong-cu{
+    height: 650px;
+    width: 20%;
+    border-radius: 10px;
+    background-color:rgb(246, 249, 248);
+}
+.bang-tabel{
+    margin-left: 10px;
+    height: 650px;
+    width: 80%;
+    border-radius: 10px;
+    background-color: rgb(246, 249, 248);
+}
+.tai-khoan{
+    display: flex;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+    flex-direction: row;
+    background-color: rgb(214, 214, 213);
+    border-radius: 10px;
+    height: 40px;
+}
+a{
+    text-decoration: none;
+    margin-left: 30px;
+    margin-top: 10px;
+}
+a:hover{
+    text-decoration: underline;
+}
+.bang-cong-cu{
+    display: flex;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+    flex-direction: column;
+    background-color: rgb(214, 214, 213);
+    border-radius: 10px;
+    height: 580px;
+}
+label{
+    margin-left: 50px;
+    margin-top: 10px;
+}
+input{
+    height: 16px;
+    margin-top: 5px;
+}
+.tim-kiem{
+    height: 30px;
+    margin-left: 50px;
+    margin-top: 5px;
+    background-color: rgb(55, 240, 18);
+}
+.button-sua-xoa{
+    display: flex;
+    flex-direction: row;
+    width: 7cm;
+    border: 1px solid black;
+}
+.button-s{
+    width: 1.5cm;
+    height: 30px;
+    margin-left: 20px;
+    border: 0.5px solid black;
+    background-color: aquamarine;
+}
+.button-s:hover{
+    background-color: cornflowerblue;
+}
+.button-x{
+    width: 1.5cm;
+    height: 30px;
+    border: 0.5px solid black;
+    background-color: crimson;
+}
+.button-x:hover{
+    background-color: cornflowerblue;
+}
+.button-congcu{
+    background-color: rgb(214, 214, 213);
+    border: none;
+    height: 40px;
+}
+.button-congcu:hover{
+    background-color: aquamarine;
+}
+td{
+    border: 1px solid black;
+}
+.nhan-de{
+    background-color: blanchedalmond;
+    border: 1px solid black;
+    height: 27px;
+}
+.khung-action{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+.tabel{
+    display: flex;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+    flex-direction: column;
+    background-color: rgb(214, 214, 213);
+    border-radius: 10px;
+    height: 580px;
+}
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+}
+.truncate-cell {
+    max-width: 6cm; /* Điều chỉnh kích thước tối đa của ô Model Path tại đây */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.tabel-home{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+    flex-direction: column;
+    background-color: rgb(214, 214, 213);
+    border-radius: 10px;
+    height: 630px;
+    font-size: 20px;
+}
+.huan_luyen{
+    display: flex;
+    margin-top: 30px;
+    margin-left: 63%;
+}
+.button_huan_luyen{
+    display: flex;
+    margin-left: 20px;
+    background-color: lightcyan;
+    height: 40px;
+    width: 5cm;
+    text-align: center;
+}
+.button_huan_luyen:hover{
+    background-color: lightskyblue;
+}
+.button-start{
+    width: 5cm;
+    height: 30px;
+    border: 0.5px solid black;
+    background-color: aquamarine;
+}
+.button-start:hover{
+    background-color: red;
+}
+
+

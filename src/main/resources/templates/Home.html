@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/quan_li_model.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body>
+<div class="khung-chu-nhat">
+    <div class="ten-chuc-nang">
+        <h4 class="h1">Hệ thống quản lý</h4>
+    </div>
+    <div class="flex-box">
+        <div class="thanh-cong-cu">
+            <div class="tai-khoan">
+                <h4 style="margin-top: 10px; color: rgb(56, 65, 56); margin-left: 10px">Phan Tuấn Thạch</h4>
+                <a href="">Logout</a>
+            </div>
+            <div class="bang-cong-cu">
+                <button class="button-congcu" onclick="goToPage('/')" style="border-top-right-radius: 10px;border-top-left-radius: 10px; ">Home</button>
+                <button class="button-congcu" onclick="goToPage('/quan_li_model')">Danh sách model</button>
+                <button class="button-congcu" onclick="goToPage('/huan_luyen_model')">Huấn luyện model</button>
+            </div>
+        </div>
+        <div class="bang-tabel">
+            <div class="khung">
+                <div class="tabel-home">
+                    <h1> Chào mừng bạn đến với hệ thống cảnh báo chống ngủ gật</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function goToPage(url) {
+        window.location.href = url;
+    }
+</script>
+</body>
+</html>
+

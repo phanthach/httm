@@ -1,0 +1,72 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.khung-chu-nhat {
+    width: 100%; /* 6 inch x 72px/inch */
+    height: 100%; /* 10 inch x 72px/inch */
+    border: 1px solid black; /* Đường viền khung ngoài */
+    background-color: grey;
+    position: relative;
+}
+.ten-chuc-nang{
+    width: 10cm;
+    height: 2cm;
+    margin-left: 40%;
+    border: 1px solid black;
+    background-color: aquamarine;
+}
+.h1{
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    text-align: center; /* Căn giữa văn bản trong khung */
+}
+th{
+    border: 1px solid black;
+    margin-top: 0px;
+    padding: 8px;
+    width: 2.5cm;
+}
+.button {
+    margin-left: 10%;
+    flex-direction: column;
+    margin-inline-end: -100px;
+    margin-top: 3%;
+    display: block;
+}
+input[type="text"] {
+    padding: 5px;
+    width: 200px;
+}
+.button-timkiem{
+    background-color: aquamarine;
+    height: 0.8cm;
+    width: 3cm;
+    margin-left: 2cm;
+}
+.button-sua{
+    background-color: rgb(238, 228, 89);
+    height: 1cm;
+    width: 5cm;
+    margin-top: 30px;
+    margin-left: 26%;
+}
+.button-xoa{
+    background-color: rgb(238, 228, 89);
+    height: 1cm;
+    width: 5cm;
+    margin-top: 30px;
+    margin-left: 2cm;
+}
+.button-thoat{
+    background-color: rgb(252, 23, 7);
+    height: 0.8cm;
+    width: 3cm;
+    margin-top: 5%;
+    margin-left: 1cm;
+    display: block;
+}
