@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/quan_li_model.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body>
+<div class="khung-chu-nhat">
+    <div class="ten-chuc-nang">
+        <h4 class="h1">Hệ thống quản lý</h4>
+    </div>
+    <div class="flex-box">
+        <div class="thanh-cong-cu">
+            <div class="tai-khoan">
+                <h4 style="margin-top: 10px; color: rgb(56, 65, 56); margin-left: 10px">Phan Tuấn Thạch</h4>
+                <a href="">Logout</a>
+            </div>
+            <div class="bang-cong-cu">
+                <button class="button-congcu" onclick="goToPage('/')" style="border-top-right-radius: 10px;border-top-left-radius: 10px;">Home</button>
+                <button class="button-congcu" onclick="goToPage('/quan_li_model')">Danh sách model</button>
+                <button class="button-congcu" onclick="goToPage('/huan_luyen_model')">Huấn luyện model</button>
+            </div>
+        </div>
+        <div class="bang-tabel">
+            <div class="button-loc">
+                <label for="tu">Từ: </label>
+                <input type="text" id="tu" name="chon ngay" placeholder="yyyy-mm-dd" th:value="${tu}">
+                <label for="den">Đến: </label>
+                <input type="text" id="den" name="chon ngay" placeholder="yyyy-mm-dd" th:value="${den}">
+                <label for="id" >ID: </label>
+                <input type="text" style="width: 4cm;" id="id" placeholder="Nhập ID" th:value="${id}">
+                <button class="tim-kiem" onclick="timKiem()">Tìm kiếm</button>
+            </div>
+            <div class="tabel">
+                <h4 class="h1" >Danh sách model huấn luyện được</h4>
+                <div class="khung">
+                    <div class="buton-codinh" >
+                        <table class="bang-du-lieu">
+                            <tr style="display: flex">
+                                <th class="nhan-de" style="width: 2cm">ID Image</th>
+                                <th class="nhan-de" style="width: 4cm">Link Path</th>
+                                <th class="nhan-de" style="width: 4cm">Feature</th>
+                                <th class="nhan-de truncate-cell" style="width: 4cm">Label</th>
+                                <th class="nhan-de" style="width: 6.2cm">Action</th>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="table-container" >
+                        <table class="bang-du-lieu">
+                            <tbody>
+                            <tr style="display: flex" th:each="listModels : ${listModel}">
+                                <td style=" text-align: center;width: 2cm; height: 30px"   th:text="${listModels.ID_Model}"></td>
+                                <td style="text-align: center; width: 4cm; height: 30px" th:text="${listModels.Name_Model}"></td>
+                                <td style="text-align: center; width: 4cm; height: 30px" th:text="${#dates.format(listModels.Training_Time, 'yyyy-MM-dd')}"></td>
+                                <td style="text-align: center; width: 4cm; height: 30px" class="truncate-cell" th:text="${listModels.Model_Path}"></td>
+                                <td style="text-align: center; width: 4cm; height: 30px" th:text="${listModels.Accuracy}"></td>
+                                <td style=" text-align: center;width: 2cm; height: 30px">
+                                    <input type="checkbox" name="selectedModels" th:value="${listModels.ID_Model}">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    </table>
+                    <div class="huan_luyen">
+                        <button class="button-s" onclick="saveSelectedModels()">Lưu đã chọn</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    flatpickr("#tu", {
+        dateFormat: "Y-m-d",
+    });
+    flatpickr("#den", {
+        dateFormat: "Y-m-d",
+    });
+
+    function deleteLearningHistoryModel(button) {
+        var row = button.parentNode.parentNode.parentNode;
+        var id = row.querySelector("td:first-child").textContent;
+        var confirmation = confirm("Bạn có chắc chắn muốn xóa mục có ID_Model = " + id + "?");
+        if (confirmation) {
+            fetch('/huan_luyen_model/' + id, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Dữ liệu đã được xóa thành công');
+                        location.reload();
+                    } else {
+                        console.error('Lỗi khi xóa dữ liệu');
+                    }
+                })
+                .catch(error => {
+                    console.error('Lỗi khi gửi yêu cầu xóa: ' + error);
+                });
+        }
+    }
+    function saveModel(button) {
+        var row = button.parentNode.parentNode.parentNode;
+        var id = row.querySelector("td:first-child").textContent;
+        var confirmation = confirm("Bạn có chắc chắn muốn lưu model có ID_Model = " + id + " vào bảng Learning History Model?");
+
+        if (confirmation) {
+            fetch('/huan_luyen_model/save-to-history?machineLearningId=' + id, {
+                method: 'POST'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Dữ liệu đã được lưu thành công');
+                        // Xóa hàng bảng MachineLearningModel sau khi lưu thành công
+                        row.remove();
+                    } else {
+                        console.error('Lỗi khi lưu dữ liệu');
+                    }
+                })
+                .catch(error => {
+                    console.error('Lỗi khi gửi yêu cầu lưu: ' + error);
+                });
+        }
+    }
+
+
+    function timKiem() {
+        var fromDate = document.getElementById("tu").value;
+        var toDate = document.getElementById("den").value;
+        var id = document.getElementById("id").value;
+
+        // Chuyển hướng đến trang tìm kiếm với các tham số tu và den
+        if (fromDate.trim() === "" && toDate.trim() === "" && id.trim() === "") {
+            alert("Vui lòng nhập ít nhất một trường để tìm kiếm.");
+            return;
+        }
+        else if (id.trim() !== "" && !Number.isInteger(parseInt(id))) {
+            alert("Vui lòng nhập một số nguyên cho trường ID.");
+            return;
+        }
+        if (fromDate.trim() === "" || toDate.trim() === "" ) {
+            alert("Vui lòng nhập ầy đủ thông tin ngày tìm.");
+            return;
+        }
+        if(id.trim() === ""){
+            id=0;
+        }
+        // Xây dựng URL tìm kiếm
+        var searchUrl = '/huan_luyen_model/search?tu=' + fromDate + '&den=' + toDate + '&id=' + id;
+        // Chuyển hướng đến URL tìm kiếm
+        window.location.href = searchUrl;
+    }
+    function goToPage(url) {
+        window.location.href = url;
+    }
+    function saveSelectedModels() {
+        var selectedIds = [];
+        var checkboxes = document.getElementsByName('selectedModels');
+
+        // Lấy ID của các dòng đã chọn
+        checkboxes.forEach(function (checkbox) {
+            if (checkbox.checked) {
+                selectedIds.push(checkbox.value);
+            }
+        });
+
+        if (selectedIds.length === 0) {
+            alert('Vui lòng chọn ít nhất một dòng để lưu.');
+            return;
+        }
+
+        var confirmation = confirm("Bạn có chắc chắn muốn lưu các model đã chọn vào bảng Learning History Model?");
+
+        if (confirmation) {
+            // Gửi yêu cầu lưu các model đã chọn
+            fetch('/huan_luyen_model/save-selected-to-history', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ selectedIds: selectedIds }),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Các dòng đã được lưu thành công');
+                        // Làm mới trang để cập nhật bảng
+                        location.reload();
+                    } else {
+                        console.error('Lỗi khi lưu dữ liệu');
+                    }
+                })
+                .catch(error => {
+                    console.error('Lỗi khi gửi yêu cầu lưu: ' + error);
+                });
+        }
+    }
+</script>
+</body>
+</html>
+
